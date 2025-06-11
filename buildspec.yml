@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+    commands:
+      - echo "Installing Maven and Java."
+      - mvn -version
+
+  pre_build:
+    commands:
+      - echo "Cleaning workspace"
+      - mvn clean
+
+  build:
+    commands:
+      - echo "Packaging WAR file"
+      - mvn package
+
+  post_build:
+    commands:
+      - echo "WAR file built successfully"
+      - ls -l target/*.war
+
+artifacts:
+  files:
+    - appspec.yml
+    - scripts/**/*
+    - target/*.war
+  discard-paths: no  
+  
+  
